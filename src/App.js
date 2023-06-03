@@ -1,25 +1,46 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useEffect, useState } from "react";
+import Cover from "./util/Cover";
+import { Container, Nav } from "react-bootstrap";
+  import { Notification } from "./util/Notification";
+import "./App.css";
+import Wallet from "./util/wallet";
+import {accountBalance} from "./utils/near";
+//import AddProduct from "./components/Addova";
+import Products from "./components/Products";
 
 function App() {
+  const account = window.walletConnection.account();
+
+  const [balance, setBalance] = useState("0");
+  const getBalance = useCallback(async () => {
+    if (account.accountId) {
+      setBalance(await accountBalance());
+    }
+  });
+
+  useEffect(() => {
+    getBalance();
+  }, [getBalance]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+       <Notification /> 
+      {account.accountId ? (
+        <Container fluid="md">
+          <Nav className="justify-content-end pt-3 pb-5">
+            <Nav.Item>
+              <Wallet address={account.accountId} amount={balance} />
+            </Nav.Item>
+          </Nav>
+          <>
+             <main> 
+               <Products />
+            </main> 
+          </>
+        </Container>
+      ) : (
+        <Cover />
+      )}
+    </>
   );
 }
-
 export default App;

@@ -1,0 +1,1 @@
+C:\Users\pc\Downloads\seed-farm\contract\target\wasm32-unknown-unknown\release\greeter.wasm: C:\Users\pc\Downloads\seed-farm\contract\src\avocado_product.rs C:\Users\pc\Downloads\seed-farm\contract\src\lib.rs
