@@ -2,8 +2,10 @@
 
 # dependencies
 /node_modules
+/neardev
 /.pnp
 .pnp.js
+.history
 
 # testing
 /coverage
